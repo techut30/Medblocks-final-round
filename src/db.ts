@@ -27,7 +27,6 @@ const initDB = async () => {
 };
 
 const broadcastChannel = new BroadcastChannel("patient-db-sync");
-
 export interface Patient {
   id: string;
   name: string;
