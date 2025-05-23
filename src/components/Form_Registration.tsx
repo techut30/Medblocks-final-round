@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { dbOperations } from "../db";
 
-interface Patient {
+interface PatientInput {
   name: string;
   dob: string;
-  email: string;
-  phone: string;
-  address: string;
+  email?: string;
+  phone?: string;
+  address?: string;
 }
 
 export default function RegistrationForm() {
-  const [formData, setFormData] = useState<Patient>({
+  const [formData, setFormData] = useState<PatientInput>({
     name: "",
     dob: "",
     email: "",
