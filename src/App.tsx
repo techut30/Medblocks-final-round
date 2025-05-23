@@ -4,7 +4,7 @@ import PatientList from "./components/PatientList";
 import SqlQuery from "./components/Query";
 import "./App.css";
 
-type TabType = "register" | "list" | "query";
+type TabType = "register" | "list";
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabType>("register");
@@ -15,8 +15,7 @@ function App() {
         return <RegistrationForm />;
       case "list":
         return <PatientList />;
-      case "query":
-        return <SqlQuery />;
+
       default:
         return <RegistrationForm />;
     }
@@ -41,12 +40,6 @@ function App() {
           onClick={() => setActiveTab("list")}
         >
           Patient List
-        </button>
-        <button
-          className={activeTab === "query" ? "active" : ""}
-          onClick={() => setActiveTab("query")}
-        >
-          SQL Query
         </button>
       </nav>
 
