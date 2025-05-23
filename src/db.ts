@@ -1,5 +1,6 @@
 import { PGlite } from "@electric-sql/pglite";
 const db = new PGlite("idb://patient-db");
+
 const initDB = async () => {
   try {
     await db.query(`
@@ -15,7 +16,6 @@ const initDB = async () => {
       )
     `);
 
-    // Create an index for better query performance
     await db.query(`
       CREATE INDEX IF NOT EXISTS idx_patients_name ON patients(name);
     `);
@@ -40,7 +40,7 @@ export interface Patient {
 }
 
 class DBEventEmitter {
-  private listeners: { [key: string]: Function[] } = {};
+  public listeners: { [key: string]: Function[] } = {};
 
   on(event: string, callback: Function) {
     if (!this.listeners[event]) {
@@ -64,13 +64,17 @@ class DBEventEmitter {
 
     broadcastChannel.postMessage({ event, data });
   }
+
+  hasListeners(event: string): boolean {
+    return !!(this.listeners[event] && this.listeners[event].length > 0);
+  }
 }
 
 export const dbEvents = new DBEventEmitter();
 
 broadcastChannel.addEventListener("message", (event) => {
   const { event: eventName, data } = event.data;
-  if (dbEvents.listeners[eventName]) {
+  if (dbEvents.hasListeners(eventName)) {
     dbEvents.listeners[eventName].forEach((callback) => callback(data));
   }
 });
