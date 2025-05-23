@@ -10,10 +10,10 @@ export default function PatientList() {
     try {
       setLoading(true);
       const result = await dbOperations.getAllPatients();
-      const patients = (result.rows as Patient[]).filter(
+      const filteredPatients = result.filter(
         (row) => row && typeof row === "object" && "id" in row && "name" in row,
       );
-      setPatients(patients);
+      setPatients(filteredPatients);
     } catch (error) {
       console.error("Error loading patients:", error);
     } finally {
@@ -95,7 +95,9 @@ export default function PatientList() {
         <h2>Registered Patients ({patients.length})</h2>
         <div className="sync-status">
           <span
-            className={`sync-indicator ${syncStatus === "Synced" ? "synced" : "updating"}`}
+            className={`sync-indicator ${
+              syncStatus === "Synced" ? "synced" : "updating"
+            }`}
           >
             ● {syncStatus}
           </span>
