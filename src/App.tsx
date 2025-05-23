@@ -26,7 +26,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Patient Registration System</h1>
-        <p>A frontend-only patient management system with PGlite database</p>
+        <p>My submission for Medblocks Final Round Selection</p>
       </header>
 
       <nav className="tab-navigation">
@@ -55,7 +55,7 @@ function App() {
       <footer className="App-footer">
         <p>
           Built with React, TypeScript, and PGlite • Data persists across
-          sessions and syncs across tabs
+          sessions and syncs across tabs --- Made by Uttakarsh
         </p>
       </footer>
     </div>
