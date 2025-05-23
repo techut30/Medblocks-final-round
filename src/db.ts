@@ -15,6 +15,7 @@ const initDB = async () => {
       )
     `);
 
+    // Create an index for better query performance
     await db.query(`
       CREATE INDEX IF NOT EXISTS idx_patients_name ON patients(name);
     `);
@@ -26,6 +27,17 @@ const initDB = async () => {
 };
 
 const broadcastChannel = new BroadcastChannel("patient-db-sync");
+
+export interface Patient {
+  id: string;
+  name: string;
+  dob: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  created_at: string;
+  updated_at: string;
+}
 
 class DBEventEmitter {
   private listeners: { [key: string]: Function[] } = {};
@@ -64,13 +76,7 @@ broadcastChannel.addEventListener("message", (event) => {
 });
 
 export const dbOperations = {
-  async insertPatient(patientData: {
-    name: string;
-    dob: string;
-    email?: string;
-    phone?: string;
-    address?: string;
-  }) {
+  async insertPatient(patientData: PatientInput) {
     const result = await db.query(
       `INSERT INTO patients (name, dob, email, phone, address)
        VALUES ($1, $2, $3, $4, $5)
@@ -84,22 +90,13 @@ export const dbOperations = {
       ],
     );
 
-    dbEvents.emit("patientInserted", result.rows[0]);
+    dbEvents.emit("patientInserted", result.rows[0] as Patient);
     return result;
   },
 
-  async updatePatient(
-    id: string,
-    patientData: Partial<{
-      name: string;
-      dob: string;
-      email: string;
-      phone: string;
-      address: string;
-    }>,
-  ) {
+  async updatePatient(id: string, patientData: Partial<PatientInput>) {
     const setParts = Object.keys(patientData).map(
-      (key, index) => `${key} = $${index + 2}`,
+      (key, index) => `${key} = ${index + 2}`,
     );
     const values = [id, ...Object.values(patientData)];
 
@@ -110,7 +107,7 @@ export const dbOperations = {
       values,
     );
 
-    dbEvents.emit("patientUpdated", result.rows[0]);
+    dbEvents.emit("patientUpdated", result.rows[0] as Patient);
     return result;
   },
 
@@ -123,12 +120,16 @@ export const dbOperations = {
     return result;
   },
 
-  async getAllPatients() {
-    return await db.query("SELECT * FROM patients ORDER BY created_at DESC");
+  async getAllPatients(): Promise<{ rows: Patient[] }> {
+    const result = await db.query(
+      "SELECT * FROM patients ORDER BY created_at DESC",
+    );
+    return { rows: result.rows as Patient[] };
   },
 
-  async getPatientById(id: string) {
-    return await db.query("SELECT * FROM patients WHERE id = $1", [id]);
+  async getPatientById(id: string): Promise<{ rows: Patient[] }> {
+    const result = await db.query("SELECT * FROM patients WHERE id = $1", [id]);
+    return { rows: result.rows as Patient[] };
   },
 
   async executeQuery(query: string, params: any[] = []) {
