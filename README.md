@@ -1,46 +1,127 @@
-# Getting Started with Create React App
+# 🏥 Patient Registration System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> A modern, frontend-only patient management application built with React, TypeScript, and PGlite. Features real-time cross-tab synchronization and persistent data storage entirely in the browser.
 
-## Available Scripts
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-blue?style=for-the-badge&logo=vercel)](https://medblocks-final.vercel.app/)
+[![GitHub](https://img.shields.io/badge/Source%20Code-black?style=for-the-badge&logo=github)](https://github.com/techut30/Medblocks-final-round)
 
-In the project directory, you can run:
+## 🚀 Live Demo
 
-### `npm start`
+**[Try the Application →](https://medblocks-final.vercel.app/)**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🛠️ Technology Stack
 
-### `npm test`
+| Category | Technology |
+|----------|------------|
+| **Frontend** | React 18, TypeScript |
+| **Database** | PGlite (PostgreSQL in browser) |
+| **Storage** | IndexedDB |
+| **Styling** | Custom CSS with Flexbox/Grid |
+| **Build Tool** | Create React App |
+| **Deployment** | Vercel |
+| **Sync** | BroadcastChannel API |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🏗️ Project Structure
 
-### `npm run build`
+```
+.
+├── .gitignore
+├── .vercel/
+│   ├── README.txt
+│   └── project.json
+├── README.md
+├── build/
+│   ├── asset-manifest.json
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   ├── robots.txt
+│   └── static/
+│       ├── css/
+│       ├── js/
+│       └── media/
+├── package-lock.json
+├── package.json
+├── public/
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   └── robots.txt
+├── src/
+│   ├── App.css
+│   ├── App.test.tsx
+│   ├── App.tsx
+│   ├── components/
+│   │   ├── Form_Registration.tsx
+│   │   ├── PatientList.tsx
+│   │   └── Query.tsx
+│   ├── db.ts
+│   ├── index.css
+│   ├── index.tsx
+│   ├── logo.svg
+│   ├── react-app-env.d.ts
+│   ├── reportWebVitals.ts
+│   └── setupTests.ts
+└── tsconfig.json
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📋 Requirements
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Node.js 16+ 
+- npm or yarn
+- Modern browser with IndexedDB support
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🚀 Installation
 
-### `npm run eject`
+### Clone the repository
+```bash
+git clone https://github.com/techut30/Medblocks-final-round.git
+cd Medblocks-final-round
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Install dependencies
+```bash
+npm install
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🛠️ Setup
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Start development server
+```bash
+npm start
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The application will open at `http://localhost:3000`
 
-## Learn More
+### Run tests
+```bash
+npm test
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Run tests with coverage
+```bash
+npm test -- --coverage
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🏗️ Building for Production
+
+### Create optimized production build
+```bash
+npm run build
+```
+
+### Serve locally to test production build
+```bash
+npx serve -s build
+```
+
+The build folder will contain optimized static files ready for deployment.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
